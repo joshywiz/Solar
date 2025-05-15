@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunPower Nigeria - Solar Energy Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+                                                                       :root {
+            --primary: #002FA7;
+            --secondary: #065f46;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        .dark {
+            --primary: #fbbf24;
+            --secondary: #10b981;
+            --dark: #f8fafc;
+            --light: #1e293b;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .text-secondary {
+            color: var(--secondary);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: var(--light);
+            margin: 10% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--dark);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .hero-pattern {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-text {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero-image {
+                width: 100%;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header/Navigation -->
+    <header class="bg-white dark:bg-gray-800 shadow-md fixed w-full z-40">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-solar-panel text-3xl text-primary mr-2"></i>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">SunPower<span class="text-primary">NG</span></h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Home</a>
+                <a href="#about" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">About</a>
+                <a href="#products" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Products</a>
+                <a href="#services" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Services</a>
+                <a href="#contact" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <button class="md:hidden" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl text-gray-800 dark:text-white"></i>
+                </button>
+                
+                <a href="#contact" class="hidden md:block bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</a>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Home</a>
+                <a href="#about" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">About</a>
+                <a href="#products" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Products</a>
+                <a href="#services" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Services</a>
+                <a href="#contact" class="nav-link text-gray-800 dark:text-white font-medium hover:text-primary transition">Contact</a>
+                <a href="#contact" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-90 transition text-center">Get Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 hero-pattern">
+        <div class="container mx-auto px-4 flex hero-content">
+            <div class="hero-text w-1/2 flex flex-col justify-center">
+                <h1 class="text-5xl font-bold text-gray-800 dark:text-white mb-4">Powering Nigeria <span class="text-primary">With Solar</span></h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">Affordable, reliable and sustainable solar energy solutions for homes and businesses across Nigeria.</p>
+                <div class="flex space-x-4">
+                    <a href="#products" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Our Products</a>
+                    <a href="#contact" class="border-2 border-primary text-primary dark:text-white px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition">Contact Us</a>
+                </div>
+                
+                <div class="mt-8 flex items-center space-x-4">
+                    <div class="flex -space-x-2">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800" alt="Customer">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800" alt="Customer">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800" alt="Customer">
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Trusted by over <span class="font-bold">5,000+</span> Nigerian homes & businesses</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image w-1/2 flex justify-center">
+                <img src="https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Solar Panels" class="rounded-xl shadow-xl w-full max-w-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100 dark:bg-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Why Choose SunPower Nigeria?</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Reliable Power</h3>
+                    <p class="text-gray-600 dark:text-gray-300">24/7 uninterrupted power supply with our high-quality solar solutions designed for Nigerian conditions.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Cost Effective</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Save up to 80% on your electricity bills with our affordable solar packages and flexible payment plans.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">5-Year Warranty</h3>
+                    <p class="text-gray-600 dark:text-gray-300">All our products come with comprehensive warranties and after-sales support across Nigeria.</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <img src="https://img.freepik.com/premium-photo/technicians-workers-with-safety-uniform-checking-photovoltaic-panels_336744-1316.jpg?ga=GA1.1.562448547.1728494237&semt=ais_hybrid&w=740" alt="Solar Installation" class="rounded-xl shadow-lg w-full">
+                </div>
+                
+                <div class="md:w-1/2 md:pl-12">
+                    <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Leading Solar Energy Provider in Nigeria</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">SunPower Nigeria has been providing cutting-edge solar solutions since 2015. Our mission is to make clean, reliable and affordable energy accessible to every Nigerian home and business.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-primary text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-600 dark:text-gray-300">Nigerian-owned company with deep understanding of local energy challenges</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-primary text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-600 dark:text-gray-300">Trained and certified installation technicians across all 36 states</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-primary text-xl mt-1 mr-3"></i>
+                            <p class="text-gray-600 dark:text-gray-300">Custom solutions tailored to your specific energy needs and budget</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block mt-8 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Our Solar Products</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">High-quality solar products designed for Nigerian homes and businesses</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/8853505/pexels-photo-8853505.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Solar Panels" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Solar Panels</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">High-efficiency monocrystalline solar panels with 25-year performance warranty.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold text-lg">From ₦120,000</span>
+                            <button onclick="openModal('modal1')" class="text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/premium-photo/solar-battery-management-system-controller-power-charge-solar-panels-solar-tracker_150455-1797.jpg?ga=GA1.1.562448547.1728494237&semt=ais_hybrid&w=740" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Solar Inverters</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Pure sine wave inverters with smart hybrid technology for seamless power.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold text-lg">From ₦85,000</span>
+                            <button onclick="openModal('modal2')" class="text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="data:image/jpeg;base64,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" alt="Solar Batteries" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Solar Batteries</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Deep cycle gel and lithium batteries with long lifespan and fast charging.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold text-lg">From ₦65,000</span>
+                            <button onclick="openModal('modal3')" class="text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/premium-photo/street-lamp-with-modern-solar-panel-lighting-technology-against-blue-sky_335439-1691.jpg?ga=GA1.1.562448547.1728494237&semt=ais_hybrid&w=740" alt="Solar Street Lights" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Solar Street Lights</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Automatic solar-powered street lights with motion sensors and long lifespan.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold text-lg">From ₦35,000</span>
+                            <button onclick="openModal('modal4')" class="text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-photo/deep-well-submersible-pump-isolated-white_627829-7501.jpg?ga=GA1.1.562448547.1728494237&semt=ais_hybrid&w=740" alt="Solar Water Pumps" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Solar Water Pumps</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Efficient solar-powered water pumps for irrigation and domestic use.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold text-lg">From ₦75,000</span>
+                            <button onclick="openModal('modal5')" class="text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition duration-300">
+                    <div class="h-48 overflow-hidden">
+                        <img src="data:image/webp;base64,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" alt="Complete Solar Kits" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Complete Solar Kits</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">All-in-one solar solutions for homes, offices, and small businesses.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold text-lg">From ₦250,000</span>
+                            <button onclick="openModal('modal6')" class="text-primary border border-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-100 dark:bg-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Our Services</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Comprehensive solar energy services across Nigeria</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-5xl mb-6">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Solar System Installation</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Professional installation of solar power systems for homes, businesses, and industries by certified technicians.</p>
+                    <button onclick="openModal('service1')" class="text-primary font-medium hover:underline">Learn more →</button>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-5xl mb-6">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Maintenance & Repair</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Regular maintenance and prompt repair services to keep your solar system performing at peak efficiency.</p>
+                    <button onclick="openModal('service2')" class="text-primary font-medium hover:underline">Learn more →</button>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-5xl mb-6">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Energy Consultation</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Customized energy solutions tailored to your specific needs and budget with expert advice.</p>
+                    <button onclick="openModal('service3')" class="text-primary font-medium hover:underline">Learn more →</button>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-5xl mb-6">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Off-Grid Solutions</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Complete off-grid solar power systems for remote locations without access to the national grid.</p>
+                    <button onclick="openModal('service4')" class="text-primary font-medium hover:underline">Learn more →</button>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-5xl mb-6">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Commercial Solar</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Large-scale solar solutions for businesses, schools, hospitals, and government institutions.</p>
+                    <button onclick="openModal('service5')" class="text-primary font-medium hover:underline">Learn more →</button>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-5xl mb-6">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">Financing Options</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Flexible payment plans and partnerships with financial institutions to make solar affordable.</p>
+                    <button onclick="openModal('service6')" class="text-primary font-medium hover:underline">Learn more →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">What Our Customers Say</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Hear from Nigerians who have switched to solar with SunPower</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Amina Bello</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">Lagos</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">"Since installing SunPower's 5KVA system in my home, I've had uninterrupted power. No more generator noise and fuel costs. Best decision ever!"</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Emeka Okonkwo</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">Enugu</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">"The solar water pump has transformed my farm. Reliable water supply even during dry season. Increased my yield by 40% this year."</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Fatima Yusuf</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">Kano</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">"The installation team was professional and completed the work on time. My small business now runs 24/7 without worrying about power."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100 dark:bg-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Get In Touch</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Ready to go solar? Contact us for a free consultation and quote</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <form id="contact-form" class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-white" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-white" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="phone" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-white" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="location" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Location (State)</label>
+                            <select id="location" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-white" required>
+                                <option value="">Select your state</option>
+                                <option value="Lagos">Lagos</option>
+                                <option value="Abuja">Abuja</option>
+                                <option value="Kano">Kano</option>
+                                <option value="Rivers">Rivers</option>
+                                <option value="Oyo">Oyo</option>
+                                <option value="Enugu">Enugu</option>
+                                <option value="Kaduna">Kaduna</option>
+                                <option value="Delta">Delta</option>
+                                <option value="Ogun">Ogun</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Your Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-800 dark:text-white" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md h-full">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 dark:text-white mb-1">Head Office</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">12 Solar Avenue, Victoria Island, Lagos, Nigeria</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 dark:text-white mb-1">Phone</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">+234 812 345 6789</p>
+                                    <p class="text-gray-600 dark:text-gray-300">+234 907 654 3210</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 dark:text-white mb-1">Email</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">info@sunpowerng.com</p>
+                                    <p class="text-gray-600 dark:text-gray-300">support@sunpowerng.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-primary text-xl mr-4 mt-1">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 dark:text-white mb-1">Working Hours</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">Monday - Friday: 8:00 AM - 5:00 PM</p>
+                                    <p class="text-gray-600 dark:text-gray-300">Saturday: 9:00 AM - 2:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-gray-800 dark:text-white mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary text-xl"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary text-xl"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary text-xl"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary text-xl"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary text-xl"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-primary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <p class="max-w-2xl mx-auto mb-8">Stay updated with the latest solar energy news, tips, and exclusive offers from SunPower Nigeria.</p>
+            
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button type="submit" class="bg-secondary text-white px-6 py-3 rounded-r-lg font-medium hover:bg-opacity-90 transition">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-solar-panel text-3xl text-primary mr-2"></i>
+                        <h3 class="text-2xl font-bold text-white">SunPower<span class="text-primary">NG</span></h3>
+                    </div>
+                    <p class="mb-4">Leading solar energy provider in Nigeria since 2015. Committed to powering Nigeria with clean, affordable and reliable solar solutions.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-primary text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary text-xl"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-primary transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-primary transition">About Us</a></li>
+                        <li><a href="#products" class="hover:text-primary transition">Products</a></li>
+                        <li><a href="#services" class="hover:text-primary transition">Services</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">Products</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-primary transition">Solar Panels</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Solar Inverters</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Solar Batteries</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Solar Street Lights</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Solar Water Pumps</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Solar Kits</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">Contact Us</h4>
+                    <address class="not-italic">
+                        <p class="mb-2"><i class="fas fa-map-marker-alt text-primary mr-2"></i> 12 Solar Avenue, VI, Lagos</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt text-primary mr-2"></i> +234 812 345 6789</p>
+                        <p class="mb-2"><i class="fas fa-envelope text-primary mr-2"></i> info@sunpowerng.com</p>
+                        <p><i class="fas fa-clock text-primary mr-2"></i> Mon-Fri: 8AM - 5PM</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy; 2023 SunPower Nigeria. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modals -->
+    <!-- Modal 1 -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1605980776566-0486c3ac7617?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Solar Panels" class="w-full rounded-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Solar Panels</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 dark:text-gray-300">(48 reviews)</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Our high-efficiency monocrystalline solar panels are designed for optimal performance in Nigerian climate conditions. With a 25-year linear power output warranty, these panels provide reliable energy for decades.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Key Features:</h3>
+                        <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>High conversion efficiency up to 21.5%</li>
+                            <li>Anti-reflective coating for better light absorption</li>
+                            <li>Salt mist and ammonia resistance for coastal areas</li>
+                            <li>PID (Potential Induced Degradation) resistant</li>
+                            <li>12-year product warranty, 25-year performance warranty</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Available Sizes:</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">100W</p>
+                                <p class="text-primary font-bold">₦120,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">200W</p>
+                                <p class="text-primary font-bold">₦210,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">300W</p>
+                                <p class="text-primary font-bold">₦295,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">400W</p>
+                                <p class="text-primary font-bold">₦375,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeModal('modal1'); window.location.href='#contact'" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1604467794349-5a3cfa5f2eb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Solar Inverters" class="w-full rounded-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Solar Inverters</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 dark:text-gray-300">(62 reviews)</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Our pure sine wave inverters with smart hybrid technology provide seamless power conversion from DC to AC with high efficiency. Designed to handle Nigeria's power fluctuations and outages.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Key Features:</h3>
+                        <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>Pure sine wave output for sensitive electronics</li>
+                            <li>Automatic transfer switching between solar and grid</li>
+                            <li>MPPT charge controller built-in</li>
+                            <li>LCD display for system monitoring</li>
+                            <li>Overload, short circuit and over temperature protection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Available Sizes:</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">1KVA</p>
+                                <p class="text-primary font-bold">₦85,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">2KVA</p>
+                                <p class="text-primary font-bold">₦150,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">3KVA</p>
+                                <p class="text-primary font-bold">₦210,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">5KVA</p>
+                                <p class="text-primary font-bold">₦320,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeModal('modal2'); window.location.href='#contact'" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal 3 -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Solar Batteries" class="w-full rounded-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Solar Batteries</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 dark:text-gray-300">(55 reviews)</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Our deep cycle solar batteries are designed for renewable energy applications with long cycle life and deep discharge recovery. Available in both gel and lithium-ion technologies.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Key Features:</h3>
+                        <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>Deep cycle design for daily charge/discharge</li>
+                            <li>Maintenance-free operation</li>
+                            <li>Fast charging capability</li>
+                            <li>Long lifespan (5-10 years depending on type)</li>
+                            <li>Wide operating temperature range</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Available Types:</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">100Ah Gel</p>
+                                <p class="text-primary font-bold">₦65,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">200Ah Gel</p>
+                                <p class="text-primary font-bold">₦120,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">5kWh Lithium</p>
+                                <p class="text-primary font-bold">₦350,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">10kWh Lithium</p>
+                                <p class="text-primary font-bold">₦650,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeModal('modal3'); window.location.href='#contact'" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal 4 -->
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal4')">&times;</span>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Solar Street Lights" class="w-full rounded-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Solar Street Lights</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 dark:text-gray-300">(78 reviews)</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Our all-in-one solar street lights provide reliable illumination for streets, compounds, and pathways without the need for grid connection. Automatic operation from dusk to dawn with motion sensor capability.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Key Features:</h3>
+                        <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>Integrated solar panel and lithium battery</li>
+                            <li>Automatic dusk-to-dawn operation</li>
+                            <li>Motion sensor for enhanced security</li>
+                            <li>Weatherproof IP65 rating</li>
+                            <li>2-5 year lifespan depending on model</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Available Models:</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">30W Basic</p>
+                                <p class="text-primary font-bold">₦35,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">60W Standard</p>
+                                <p class="text-primary font-bold">₦65,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">100W Premium</p>
+                                <p class="text-primary font-bold">₦95,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">150W Commercial</p>
+                                <p class="text-primary font-bold">₦150,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeModal('modal4'); window.location.href='#contact'" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal 5 -->
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal5')">&times;</span>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Solar Water Pumps" class="w-full rounded-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Solar Water Pumps</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 dark:text-gray-300">(42 reviews)</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Our solar-powered water pumps provide reliable water supply for irrigation, livestock, and domestic use without dependence on grid electricity or fuel. Ideal for rural areas and farms across Nigeria.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Key Features:</h3>
+                        <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>Direct DC operation from solar panels</li>
+                            <li>Low maintenance and long lifespan</li>
+                            <li>Automatic operation with sunlight</li>
+                            <li>Various flow rates and head heights available</li>
+                            <li>Stainless steel construction for durability</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Available Models:</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">0.5HP Surface</p>
+                                <p class="text-primary font-bold">₦75,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">1HP Submersible</p>
+                                <p class="text-primary font-bold">₦120,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">2HP Submersible</p>
+                                <p class="text-primary font-bold">₦220,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">3HP Submersible</p>
+                                <p class="text-primary font-bold">₦350,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeModal('modal5'); window.location.href='#contact'" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal 6 -->
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal6')">&times;</span>
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Complete Solar Kits" class="w-full rounded-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Complete Solar Kits</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 dark:text-gray-300">(68 reviews)</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Our all-in-one solar kits provide complete solutions for homes, offices, and small businesses. Each kit includes solar panels, inverter, batteries, charge controller, and all necessary accessories for easy installation.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Key Features:</h3>
+                        <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>Pre-configured for easy setup</li>
+                            <li>All components matched for optimal performance</li>
+                            <li>Includes installation manual and support</li>
+                            <li>Expandable as your needs grow</li>
+                            <li>Comprehensive warranty on complete system</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Available Kits:</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">1KVA Home Kit</p>
+                                <p class="text-primary font-bold">₦250,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">2KVA Home Kit</p>
+                                <p class="text-primary font-bold">₦450,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">3KVA Office Kit</p>
+                                <p class="text-primary font-bold">₦650,000</p>
+                            </div>
+                            <div class="border border-gray-300 dark:border-gray-600 p-3 rounded-lg">
+                                <p class="font-medium text-gray-800 dark:text-white">5KVA Business Kit</p>
+                                <p class="text-primary font-bold">₦1,200,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeModal('modal6'); window.location.href='#contact'" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Get Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Modals -->
+    <!-- Service 1 -->
+    <div id="service1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('service
+</html>
